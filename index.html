@@ -1,0 +1,2027 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ORDASU AI — Asisten Cerdas Amatir Radio, Telekomunikasi & Teknik Antena</title>
+
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- KaTeX for Mathematical & RF Formula Rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+
+  <!-- Marked.js & DOMPurify for Safe Markdown Rendering -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.6/dist/purify.min.js"></script>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            rf: {
+              bg: '#0b1120',
+              panel: '#0f172a',
+              card: '#162033',
+              border: '#1e293b',
+              amber: '#f59e0b',
+              cyan: '#06b6d4',
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    /* Custom Scrollbars */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(148, 163, 184, 0.25);
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(148, 163, 184, 0.45);
+    }
+
+    /* Technical RF Console Background Grid */
+    .rf-console-grid {
+      background-image:
+        radial-gradient(circle at 50% 0%, rgba(245, 158, 11, 0.06) 0%, transparent 55%),
+        radial-gradient(circle at 85% 90%, rgba(6, 182, 212, 0.05) 0%, transparent 50%),
+        linear-gradient(to right, rgba(148, 163, 184, 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(148, 163, 184, 0.04) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 28px 28px, 28px 28px;
+    }
+
+    /* Radio Tower Wave Pulse */
+    @keyframes wavePulse {
+      0%, 100% { opacity: 0.95; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(1.08); }
+    }
+    .rf-wave-anim {
+      animation: wavePulse 2.6s ease-in-out infinite;
+      transform-origin: center;
+    }
+
+    /* Typing Indicator Dots */
+    @keyframes dotBounce {
+      0%, 80%, 100% { transform: translateY(0); opacity: 0.35; }
+      40% { transform: translateY(-4px); opacity: 1; }
+    }
+    .typing-dot:nth-child(1) { animation: dotBounce 1.25s infinite 0s; }
+    .typing-dot:nth-child(2) { animation: dotBounce 1.25s infinite 0.2s; }
+    .typing-dot:nth-child(3) { animation: dotBounce 1.25s infinite 0.4s; }
+
+    /* Rich Markdown Formatting */
+    .md-prose {
+      font-size: 0.925rem;
+      line-height: 1.68;
+      word-wrap: break-word;
+    }
+    .md-prose p {
+      margin-bottom: 0.75rem;
+    }
+    .md-prose p:last-child {
+      margin-bottom: 0;
+    }
+    .md-prose h1, .md-prose h2, .md-prose h3, .md-prose h4 {
+      font-weight: 700;
+      margin-top: 1.15rem;
+      margin-bottom: 0.45rem;
+      line-height: 1.35;
+    }
+    .md-prose h1:first-child, .md-prose h2:first-child, .md-prose h3:first-child {
+      margin-top: 0;
+    }
+    .md-prose h1 { font-size: 1.25rem; }
+    .md-prose h2 { font-size: 1.125rem; border-bottom: 1px solid rgba(148, 163, 184, 0.2); padding-bottom: 0.2rem; }
+    .md-prose h3 { font-size: 1rem; }
+    .md-prose ul {
+      list-style-type: disc;
+      padding-left: 1.4rem;
+      margin-bottom: 0.75rem;
+    }
+    .md-prose ol {
+      list-style-type: decimal;
+      padding-left: 1.4rem;
+      margin-bottom: 0.75rem;
+    }
+    .md-prose li {
+      margin-bottom: 0.3rem;
+    }
+    .md-prose strong {
+      font-weight: 600;
+    }
+    .dark .md-prose strong {
+      color: #fbbf24;
+    }
+    .md-prose blockquote {
+      border-left: 3px solid #f59e0b;
+      padding: 0.45rem 0.85rem;
+      margin: 0.75rem 0;
+      background: rgba(245, 158, 11, 0.08);
+      border-radius: 0 0.5rem 0.5rem 0;
+      font-style: italic;
+    }
+    .md-prose :not(pre) > code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.84em;
+      padding: 0.14rem 0.38rem;
+      border-radius: 0.375rem;
+    }
+    .dark .md-prose :not(pre) > code {
+      background-color: rgba(6, 182, 212, 0.15);
+      color: #38bdf8;
+      border: 1px solid rgba(6, 182, 212, 0.25);
+    }
+    html:not(.dark) .md-prose :not(pre) > code {
+      background-color: #f1f5f9;
+      color: #0e7490;
+      border: 1px solid #cbd5e1;
+    }
+    .md-prose table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0.85rem 0;
+      font-size: 0.85rem;
+      display: block;
+      overflow-x: auto;
+    }
+    .md-prose th, .md-prose td {
+      padding: 0.5rem 0.75rem;
+      text-align: left;
+      border: 1px solid rgba(148, 163, 184, 0.25);
+    }
+    .dark .md-prose th {
+      background-color: #162033;
+      color: #38bdf8;
+      font-weight: 600;
+    }
+    html:not(.dark) .md-prose th {
+      background-color: #f1f5f9;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-rf-bg dark:text-slate-100 font-sans antialiased selection:bg-amber-500/30 selection:text-amber-200 overflow-x-hidden">
+
+  <!-- Main Application Shell -->
+  <div class="flex h-screen w-full overflow-hidden relative">
+
+    <!-- Mobile Sidebar Backdrop -->
+    <div id="sidebarBackdrop" class="fixed inset-0 bg-slate-950/75 backdrop-blur-xs z-30 hidden lg:hidden transition-opacity" onclick="toggleSidebar(false)"></div>
+
+    <!-- Collapsible Left Sidebar -->
+    <aside id="sidebar" class="fixed lg:static inset-y-0 left-0 z-40 w-80 max-w-[85vw] bg-white dark:bg-rf-panel border-r border-slate-200 dark:border-rf-border flex flex-col transition-all duration-300 -translate-x-full lg:translate-x-0 shrink-0">
+
+      <!-- Sidebar Top: New Chat & Search -->
+      <div class="p-3.5 border-b border-slate-200 dark:border-rf-border space-y-2.5">
+        <div class="flex items-center justify-between gap-2">
+          <button onclick="createNewChat()" class="flex-1 flex items-center justify-center gap-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-sm py-2.5 px-3.5 rounded-xl shadow-md shadow-amber-500/15 transition active:scale-[0.99] cursor-pointer">
+            <svg class="w-4 h-4 stroke-[2.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+            </svg>
+            <span>Obrolan Baru</span>
+          </button>
+          <button onclick="toggleSidebar(false)" class="lg:hidden p-2.5 rounded-xl text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-rf-card cursor-pointer" title="Tutup Sidebar">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Live Search Input -->
+        <div class="relative">
+          <svg class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z" />
+          </svg>
+          <input id="chatSearchInput" type="text" placeholder="Cari riwayat QSO / chat..." oninput="renderChatHistory()" class="w-full bg-slate-100 dark:bg-rf-card border border-slate-200 dark:border-slate-700/70 rounded-xl pl-9 pr-3 py-2 text-xs text-slate-800 dark:text-slate-200 placeholder-slate-400 focus:outline-none focus:border-cyan-500 transition" />
+        </div>
+      </div>
+
+      <!-- Sidebar Scrollable Body: Chat History + Quick Topic Starters -->
+      <div class="flex-1 overflow-y-auto px-3 py-3 space-y-5">
+
+        <!-- Saved Chat History -->
+        <div>
+          <div class="flex items-center justify-between px-1.5 mb-2">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">Riwayat Log QSO / Chat</span>
+            <span id="historyCountBadge" class="text-[10px] font-mono px-1.5 py-0.5 rounded-md bg-slate-100 dark:bg-rf-card text-slate-500 dark:text-slate-400">0</span>
+          </div>
+          <div id="chatHistoryList" class="space-y-1">
+            <!-- Dynamically rendered -->
+          </div>
+        </div>
+
+        <!-- Categorized Quick Topic Starters -->
+        <div class="pt-2 border-t border-slate-200/80 dark:border-rf-border">
+          <div class="px-1.5 mb-2.5 flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+            <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Topik Cepat RF & ORARI</span>
+          </div>
+          <div id="topicStartersContainer" class="space-y-2">
+            <!-- Dynamically rendered -->
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Sidebar Footer: ORARI Daerah Sumatera Utara Reference -->
+      <div class="p-3 border-t border-slate-200 dark:border-rf-border bg-slate-50/80 dark:bg-slate-950/60">
+        <div class="rounded-xl p-2.5 bg-white dark:bg-rf-card border border-slate-200/80 dark:border-slate-800 text-xs">
+          <div class="flex items-center justify-between mb-1">
+            <span class="font-bold text-amber-600 dark:text-amber-400 tracking-wide">ORARI DAERAH SUMUT</span>
+            <span class="font-mono text-[10px] px-1.5 py-0.5 rounded bg-cyan-500/15 text-cyan-600 dark:text-cyan-400 font-semibold"></span>
+          </div>
+          <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
+            VHF Panggil: <span class="font-mono text-slate-700 dark:text-slate-300">145.000 MHz</span> • 40m: <span class="font-mono text-slate-700 dark:text-slate-300">7.055 MHz</span> • CORE
+          </p>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Right Workspace -->
+    <div class="flex-1 flex flex-col min-w-0 h-full bg-slate-50 dark:bg-rf-bg rf-console-grid">
+
+      <!-- Top Header Bar -->
+      <header class="h-16 px-3 sm:px-5 border-b border-slate-200 dark:border-rf-border bg-white/90 dark:bg-rf-panel/90 backdrop-blur-md flex items-center justify-between gap-2 shrink-0 z-20">
+
+        <!-- Left: Sidebar Toggle + Custom Radio Tower Emblem + Title -->
+        <div class="flex items-center gap-2.5 sm:gap-3 min-w-0">
+          <button onclick="toggleSidebar()" class="p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-rf-card transition cursor-pointer shrink-0" title="Buka/Tutup Sidebar">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h10" />
+            </svg>
+          </button>
+
+          <!-- Custom SVG Radio Tower & Electromagnetic Wave Emblem -->
+          <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-slate-900 to-slate-800 dark:from-rf-card dark:to-slate-950 border border-amber-500/40 flex items-center justify-center shadow-inner shrink-0">
+            <svg class="w-7 h-7" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path class="rf-wave-anim" d="M13 13C9.5 16.5 9.5 22.5 13 26" stroke="#06b6d4" stroke-width="2.2" stroke-linecap="round"/>
+              <path class="rf-wave-anim" d="M35 13C38.5 16.5 38.5 22.5 35 26" stroke="#06b6d4" stroke-width="2.2" stroke-linecap="round"/>
+              <path d="M17 16.5C15 18.5 15 21.5 17 23.5" stroke="#38bdf8" stroke-width="2" stroke-linecap="round"/>
+              <path d="M31 16.5C33 18.5 33 21.5 31 23.5" stroke="#38bdf8" stroke-width="2" stroke-linecap="round"/>
+              <circle cx="24" cy="19.5" r="2.6" fill="#f59e0b"/>
+              <path d="M24 22L17.5 40M24 22L30.5 40" stroke="#f59e0b" stroke-width="2.4" stroke-linecap="round"/>
+              <path d="M19.5 34H28.5M21 28.5H27" stroke="#fbbf24" stroke-width="2" stroke-linecap="round"/>
+              <path d="M14 40H34" stroke="#94a3b8" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+
+          <!-- Title & Subtitle -->
+          <div class="min-w-0">
+            <div class="flex items-center gap-2">
+              <h1 class="font-extrabold text-sm sm:text-base tracking-tight text-slate-900 dark:text-white truncate">
+                ORDASU <span class="text-amber-500">AI</span>
+              </h1>
+              <span class="hidden xl:inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-mono font-semibold bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30">
+                INDONESIA
+              </span>
+            </div>
+            <p class="text-[11px] text-slate-500 dark:text-slate-400 truncate hidden sm:block">
+              Asisten Cerdas Amatir Radio, Telekomunikasi & Teknik Antena
+            </p>
+          </div>
+        </div>
+
+        <!-- Right Controls: Status Pill, Callsign Badge, RF Calculator, Theme, Station Settings -->
+        <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
+
+          <!-- Sleek Gemini AI Connected Status Pill -->
+          <div id="connectionStatusPill" class="hidden md:flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-700 dark:text-emerald-400 text-[11px] font-mono font-semibold select-none" title="Status Koneksi Langsung Gemini AI">
+            <span id="connectionDot" class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0"></span>
+            <span id="connectionText">ORDASU AI • TERHUBUNG</span>
+          </div>
+
+          <!-- Editable Callsign Badge (Opens Station Preferences Modal) -->
+          <button onclick="openStationModal(true)" class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200/80 dark:bg-rf-card dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700/80 text-xs font-mono font-semibold text-amber-600 dark:text-amber-400 transition cursor-pointer" title="Klik untuk mengatur Callsign & Profil Stasiun">
+            <svg class="w-3.5 h-3.5 text-amber-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+            </svg>
+            <span id="callsignDisplay" class="max-w-[115px] sm:max-w-[160px] truncate">Callsign: YB6/YC6/YD6</span>
+          </button>
+
+          <!-- RF & Antenna Calculator Button -->
+          <button onclick="openCalculatorModal()" class="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl bg-cyan-500/15 hover:bg-cyan-500/25 border border-cyan-500/40 text-cyan-700 dark:text-cyan-300 text-xs font-semibold transition cursor-pointer" title="Kalkulator Antena & SWR">
+            <svg class="w-4 h-4 text-cyan-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+            </svg>
+            <span class="hidden lg:inline">Kalkulator RF</span>
+          </button>
+
+          <!-- Theme Toggle Button -->
+          <button onclick="toggleTheme()" class="p-2 rounded-xl bg-slate-100 hover:bg-slate-200/80 dark:bg-rf-card dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700/80 text-slate-600 dark:text-slate-300 transition cursor-pointer" title="Ganti Tema (Gelap / Terang)">
+            <svg class="w-4 h-4 hidden dark:block text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
+            </svg>
+            <svg class="w-4 h-4 block dark:hidden text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
+            </svg>
+          </button>
+
+          <!-- Station Settings Button (Pengaturan Stasiun) -->
+          <button onclick="openStationModal(false)" class="p-2 rounded-xl bg-slate-100 hover:bg-slate-200/80 dark:bg-rf-card dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700/80 text-slate-600 dark:text-slate-300 transition cursor-pointer" title="Pengaturan Stasiun">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+          </button>
+
+        </div>
+      </header>
+
+      <!-- Chat Messages Scroll Container -->
+      <main id="chatScrollContainer" class="flex-1 overflow-y-auto px-3 sm:px-6 py-5 scroll-smooth">
+        <div id="chatMessagesWrapper" class="max-w-4xl mx-auto space-y-5">
+          <!-- Welcome Screen or Chat Messages Rendered Dynamically -->
+        </div>
+      </main>
+
+      <!-- Bottom Input Area -->
+      <footer class="p-3 sm:p-4 border-t border-slate-200 dark:border-rf-border bg-white/95 dark:bg-rf-panel/95 backdrop-blur-md shrink-0">
+        <div class="max-w-4xl mx-auto">
+
+          <!-- Attached Image Preview Bar -->
+          <div id="imagePreviewBar" class="hidden mb-2.5 p-2.5 rounded-2xl bg-slate-100 dark:bg-rf-card border border-slate-200 dark:border-slate-700/80 flex items-center justify-between gap-3">
+            <div class="flex items-center gap-3 min-w-0">
+              <img id="imagePreviewThumb" src="" alt="Lampiran Gambar" class="w-12 h-12 rounded-xl object-cover border border-cyan-500/40 shrink-0" />
+              <div class="min-w-0">
+                <p id="imagePreviewName" class="text-xs font-semibold text-slate-800 dark:text-slate-200 truncate">skema_rf.png</p>
+                <p class="text-[11px] text-cyan-600 dark:text-cyan-400">Siap dianalisis oleh ORDASU AI (Multimodal Vision)</p>
+              </div>
+            </div>
+            <button onclick="clearAttachedImage()" class="p-1.5 rounded-xl text-slate-500 hover:text-rose-500 hover:bg-slate-200 dark:hover:bg-slate-800 transition cursor-pointer shrink-0" title="Hapus lampiran gambar">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+
+          <!-- Prompt Composer Box -->
+          <div class="relative flex items-end gap-2 p-2 rounded-2xl bg-slate-100 dark:bg-rf-card border border-slate-300 dark:border-slate-700/90 focus-within:border-amber-500 dark:focus-within:border-amber-500/80 shadow-xs transition">
+
+            <!-- Hidden File Input -->
+            <input type="file" id="imageFileInput" accept="image/png,image/jpeg,image/webp" class="hidden" onchange="handleImageFileSelect(event)" />
+
+            <!-- Image Upload Button -->
+            <button onclick="document.getElementById('imageFileInput').click()" class="p-2.5 rounded-xl text-slate-500 dark:text-slate-400 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-slate-200/70 dark:hover:bg-slate-800 transition shrink-0 cursor-pointer" title="Unggah foto antena, skema rangkaian, atau tangkapan layar NanoVNA">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+            </button>
+
+            <!-- Auto-Resizing Textarea -->
+            <textarea id="promptInput" rows="1" placeholder="Tanyakan seputar antena Yagi/Dipole, regulasi ORARI, propagasi, NanoVNA, rangkaian RF, atau tempel gambar..." class="flex-1 bg-transparent border-0 resize-none py-2.5 px-1 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none max-h-40 leading-relaxed" oninput="autoResizeTextarea(this)" onkeydown="handlePromptKeydown(event)"></textarea>
+
+            <!-- Send or Stop Button -->
+            <button id="sendOrStopBtn" onclick="handleSendOrStop()" class="p-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-semibold shadow-md shadow-amber-500/20 transition active:scale-95 shrink-0 cursor-pointer" title="Kirim Pertanyaan (Enter)">
+              <svg id="sendIcon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
+              </svg>
+              <svg id="stopIcon" class="w-5 h-5 hidden animate-pulse" fill="currentColor" viewBox="0 0 24 24">
+                <rect x="6" y="6" width="12" height="12" rx="2" />
+              </svg>
+            </button>
+          </div>
+
+          <div class="mt-1.5 px-1 flex items-center justify-between text-[11px] text-slate-400 dark:text-slate-500">
+            <span>Enter untuk kirim • Shift+Enter baris baru • Mendukung unggah/paste gambar RF</span>
+            <span id="qthFooterLabel" class="font-mono text-amber-600/80 dark:text-amber-400/80 hidden sm:inline">ORARI Daerah Sumatera Utara</span>
+          </div>
+        </div>
+      </footer>
+
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- MODAL 1: PENGATURAN STASIUN (STATION PREFERENCES - TANPA API KEY)     -->
+  <!-- ===================================================================== -->
+  <div id="stationSettingsModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-slate-950/75 backdrop-blur-xs">
+    <div class="w-full max-w-md rounded-2xl bg-white dark:bg-rf-panel border border-slate-200 dark:border-slate-700/90 shadow-2xl overflow-hidden">
+
+      <!-- Modal Header -->
+      <div class="px-5 py-4 border-b border-slate-200 dark:border-rf-border flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-500">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" />
+            </svg>
+          </div>
+          <div>
+            <h2 class="font-bold text-base text-slate-900 dark:text-white">Pengaturan Stasiun</h2>
+            <p class="text-xs text-slate-500 dark:text-slate-400">Identitas operator amatir radio & preferensi konsol</p>
+          </div>
+        </div>
+        <button onclick="closeStationModal()" class="p-1.5 rounded-xl text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-rf-card cursor-pointer">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="p-5 space-y-4">
+
+        <!-- Callsign Operator Input -->
+        <div>
+          <label for="stationCallsignInput" class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+            Callsign Operator
+          </label>
+          <input id="stationCallsignInput" type="text" maxlength="16" placeholder="Contoh: YB6IOV / YD6IOV / ORDASU" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-100 dark:bg-rf-card border border-slate-300 dark:border-slate-700 font-mono text-sm uppercase font-bold text-slate-900 dark:text-amber-400 focus:outline-none focus:border-amber-500" onkeydown="if(event.key==='Enter') saveStationSettings()" />
+          <p class="mt-1 text-[11px] text-slate-400">Callsign Anda akan tampil di header dan digunakan AI saat menyapa.</p>
+        </div>
+
+        <!-- Operator Name / QTH Input -->
+        <div>
+          <label for="stationQthInput" class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+            Nama Operator / QTH <span class="font-normal text-slate-400">(Opsional)</span>
+          </label>
+          <input id="stationQthInput" type="text" maxlength="60" placeholder="Contoh: Medan - Call Area 6 (Grid NJ93)" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-100 dark:bg-rf-card border border-slate-300 dark:border-slate-700 text-xs text-slate-900 dark:text-slate-100 focus:outline-none focus:border-cyan-500" onkeydown="if(event.key==='Enter') saveStationSettings()" />
+        </div>
+
+        <!-- Theme Preference Selector -->
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+            Tema Tampilan Konsol
+          </label>
+          <div class="grid grid-cols-2 gap-2">
+            <button type="button" id="themeBtnDark" onclick="setThemeMode('dark')" class="flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl border text-xs font-semibold transition cursor-pointer">
+              <span>🌙</span>
+              <span>Dark RF Console</span>
+            </button>
+            <button type="button" id="themeBtnLight" onclick="setThemeMode('light')" class="flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl border text-xs font-semibold transition cursor-pointer">
+              <span>☀️</span>
+              <span>Light Mode</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Clear All Chat History Section -->
+        <div class="pt-3 border-t border-slate-200 dark:border-rf-border">
+          <div class="flex items-center justify-between gap-2">
+            <div>
+              <p class="text-xs font-semibold text-slate-800 dark:text-slate-200">Manajemen Riwayat Obrolan</p>
+              <p class="text-[11px] text-slate-500 dark:text-slate-400">Hapus seluruh log percakapan tersimpan di perangkat ini.</p>
+            </div>
+            <button type="button" id="clearAllChatsBtn" onclick="requestClearAllChats()" class="px-3 py-2 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 text-rose-600 dark:text-rose-400 font-semibold text-xs transition shrink-0 cursor-pointer">
+              Hapus Semua
+            </button>
+          </div>
+
+          <!-- Inline Two-Step Confirmation Box (No window.confirm) -->
+          <div id="clearAllConfirmBox" class="hidden mt-3 p-3 rounded-xl bg-rose-500/15 border border-rose-500/40 flex items-center justify-between gap-2 text-xs">
+            <span class="text-rose-700 dark:text-rose-300 font-medium">Yakin hapus semua riwayat chat?</span>
+            <div class="flex items-center gap-1.5 shrink-0">
+              <button type="button" onclick="executeClearAllChats()" class="px-2.5 py-1 rounded-lg bg-rose-600 hover:bg-rose-500 text-white font-semibold cursor-pointer">Ya, Hapus</button>
+              <button type="button" onclick="cancelClearAllChats()" class="px-2.5 py-1 rounded-lg bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200 font-medium cursor-pointer">Batal</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="px-5 py-3.5 bg-slate-50 dark:bg-slate-950/70 border-t border-slate-200 dark:border-rf-border flex items-center justify-end gap-2">
+        <button onclick="closeStationModal()" class="px-3.5 py-2 rounded-xl text-xs font-medium text-slate-600 dark:text-slate-400 hover:bg-slate-200/70 dark:hover:bg-rf-card cursor-pointer">Batal</button>
+        <button onclick="saveStationSettings()" class="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs shadow-sm cursor-pointer">Simpan Pengaturan</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- MODAL 2: KALKULATOR RF & TEKNIK ANTENA INTERAKTIF                     -->
+  <!-- ===================================================================== -->
+  <div id="calculatorModal" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-4 bg-slate-950/75 backdrop-blur-xs">
+    <div class="w-full max-w-2xl max-h-[92vh] rounded-2xl bg-white dark:bg-rf-panel border border-slate-200 dark:border-slate-700/90 shadow-2xl flex flex-col overflow-hidden">
+
+      <!-- Modal Header -->
+      <div class="px-5 py-4 border-b border-slate-200 dark:border-rf-border flex items-center justify-between shrink-0">
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-xl bg-cyan-500/15 border border-cyan-500/35 flex items-center justify-center text-cyan-500">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+            </svg>
+          </div>
+          <div>
+            <h2 class="font-bold text-base text-slate-900 dark:text-white">Kalkulator RF & Teknik Antena</h2>
+            <p class="text-xs text-slate-500 dark:text-slate-400">Hitung dimensi fisik antena & parameter saluran transmisi secara presisi</p>
+          </div>
+        </div>
+        <button onclick="closeCalculatorModal()" class="p-1.5 rounded-xl text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-rf-card cursor-pointer">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Calculator Tabs -->
+      <div class="px-4 pt-3 border-b border-slate-200 dark:border-rf-border flex gap-1.5 overflow-x-auto shrink-0 bg-slate-50/70 dark:bg-slate-950/50">
+        <button id="calcTabBtn1" onclick="switchCalcTab(1)" class="px-3.5 py-2 rounded-t-xl text-xs font-bold border-b-2 border-amber-500 text-amber-600 dark:text-amber-400 bg-white dark:bg-rf-panel whitespace-nowrap cursor-pointer">
+          1. Half-Wave Dipole & Inverted-V
+        </button>
+        <button id="calcTabBtn2" onclick="switchCalcTab(2)" class="px-3.5 py-2 rounded-t-xl text-xs font-semibold border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 whitespace-nowrap cursor-pointer">
+          2. Antena Yagi 3-Elemen
+        </button>
+        <button id="calcTabBtn3" onclick="switchCalcTab(3)" class="px-3.5 py-2 rounded-t-xl text-xs font-semibold border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 whitespace-nowrap cursor-pointer">
+          3. SWR, Return Loss & Daya
+        </button>
+      </div>
+
+      <!-- Calculator Body -->
+      <div class="p-5 overflow-y-auto flex-1 space-y-5">
+
+        <!-- TAB 1: HALF-WAVE DIPOLE & INVERTED-V -->
+        <div id="calcPanel1" class="space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Frekuensi Kerja (MHz)</label>
+              <input id="dipoleFreq" type="number" step="0.001" min="1" max="3000" value="7.055" oninput="calculateDipole()" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-100 dark:bg-rf-card border border-slate-300 dark:border-slate-700 font-mono text-sm font-semibold text-slate-900 dark:text-amber-400 focus:outline-none focus:border-amber-500" />
+              <div class="flex flex-wrap gap-1.5 mt-2">
+                <button onclick="setDipoleFreq(3.700)" class="px-2 py-0.5 rounded-md text-[10px] font-mono bg-slate-200/70 dark:bg-slate-800 hover:bg-amber-500/20 text-slate-700 dark:text-slate-300 cursor-pointer">80m (3.70)</button>
+                <button onclick="setDipoleFreq(7.055)" class="px-2 py-0.5 rounded-md text-[10px] font-mono bg-slate-200/70 dark:bg-slate-800 hover:bg-amber-500/20 text-slate-700 dark:text-slate-300 cursor-pointer">40m (7.055)</button>
+                <button onclick="setDipoleFreq(14.200)" class="px-2 py-0.5 rounded-md text-[10px] font-mono bg-slate-200/70 dark:bg-slate-800 hover:bg-amber-500/20 text-slate-700 dark:text-slate-300 cursor-pointer">20m (14.20)</button>
+                <button onclick="setDipoleFreq(21.200)" class="px-2 py-0.5 rounded-md text-[10px] font-mono bg-slate-200/70 dark:bg-slate-800 hover:bg-amber-500/20 text-slate-700 dark:text-slate-300 cursor-pointer">15m (21.20)</button>
+                <button onclick="setDipoleFreq(28.500)" class="px-2 py-0.5 rounded-md text-[10px] font-mono bg-slate-200/70 dark:bg-slate-800 hover:bg-amber-500/20 text-slate-700 dark:text-slate-300 cursor-pointer">10m (28.50)</button>
+                <button onclick="setDipoleFreq(145.000)" class="px-2 py-0.5 rounded-md text-[10px] font-mono bg-slate-200/70 dark:bg-slate-800 hover:bg-amber-500/20 text-slate-700 dark:text-slate-300 cursor-pointer">2m (145.0)</button>
+              </div>
+            </div>
+
+            <div class="space-y-3">
+              <div>
+                <div class="flex justify-between text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                  <span>Velocity / End-Effect Factor</span>
+                  <span id="dipoleVfLabel" class="font-mono text-cyan-600 dark:text-cyan-400">0.950</span>
+                </div>
+                <input id="dipoleVf" type="range" min="0.90" max="0.99" step="0.005" value="0.95" oninput="calculateDipole()" class="w-full accent-amber-500 cursor-pointer" />
+              </div>
+
+              <div>
+                <div class="flex justify-between text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                  <span>Konfigurasi Sudut Puncak</span>
+                  <span id="dipoleApexLabel" class="font-mono text-amber-600 dark:text-amber-400">120° (Inverted-V)</span>
+                </div>
+                <select id="dipoleConfig" onchange="calculateDipole()" class="w-full px-3 py-2 rounded-xl bg-slate-100 dark:bg-rf-card border border-slate-300 dark:border-slate-700 text-xs text-slate-900 dark:text-slate-100 focus:outline-none">
+                  <option value="flat">Flat-Top Horizontal Dipole (180° • Z ≈ 73Ω)</option>
+                  <option value="inv120" selected>Inverted-V Standar (120° • Z ≈ 50Ω)</option>
+                  <option value="inv90">Inverted-V Tajam (90° • Z ≈ 42Ω)</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div class="p-3.5 rounded-2xl bg-slate-100 dark:bg-rf-card border border-slate-200 dark:border-slate-800">
+              <span class="text-[11px] font-medium text-slate-500 dark:text-slate-400 block">Panjang Gelombang (λ)</span>
+              <span id="resDipoleLambda" class="text-lg font-mono font-bold text-slate-900 dark:text-white mt-0.5 block">42.49 m</span>
+              <span id="resDipoleLambdaCm" class="text-[11px] font-mono text-slate-500">4249.4 cm</span>
+            </div>
+
+            <div class="p-3.5 rounded-2xl bg-amber-500/10 border border-amber-500/30">
+              <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-300 block">Panjang Total (½λ Efektif)</span>
+              <span id="resDipoleTotal" class="text-lg font-mono font-extrabold text-amber-600 dark:text-amber-400 mt-0.5 block">19.78 m</span>
+              <span id="resDipoleTotalCm" class="text-[11px] font-mono text-amber-700/80 dark:text-amber-300/80">1978.0 cm</span>
+            </div>
+
+            <div class="p-3.5 rounded-2xl bg-cyan-500/10 border border-cyan-500/30">
+              <span class="text-[11px] font-semibold text-cyan-700 dark:text-cyan-300 block">Panjang Per Sayap (L/2)</span>
+              <span id="resDipoleLeg" class="text-lg font-mono font-extrabold text-cyan-600 dark:text-cyan-400 mt-0.5 block">9.89 m</span>
+              <span id="resDipoleLegCm" class="text-[11px] font-mono text-cyan-700/80 dark:text-cyan-300/80">989.0 cm (+15cm trim)</span>
+            </div>
+          </div>
+
+          <div class="pt-1 flex justify-end">
+            <button onclick="askAiFromDipole()" class="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-xs shadow-md shadow-amber-500/15 transition cursor-pointer">
+              <span>Kirim Hasil & Tanya Konstruksi ke AI</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- TAB 2: YAGI 3-ELEMEN -->
+        <div id="calcPanel2" class="hidden space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Frekuensi Tengah Yagi (MHz)</label>
+              <input id="yagiFreq" type="number" step="0.01" min="10" max="1500" value="145.00" oninput="calculateYagi()" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-100 dark:bg-rf-card border border-slate-300 dark:border-slate-700 font-mono text-sm font-semibold text-slate-900 dark:text-amber-400 focus:outline-none focus:border-amber-500" />
+              <div class="flex flex-wrap gap-1.5 mt-2">
+                <button onclick="setYagiFreq(28.40)" class="px-2 py-0.5 rounded-md text-[10px] font-mono bg-slate-200/70 dark:bg-slate-800 hover:bg-amber-500/20 text-slate-700 dark:text-slate-300 cursor-pointer">10m (28.4)</button>
+                <button onclick="setYagiFreq(50.15)" class="px-2 py-0.5 rounded-md text-[10px] font-mono bg-slate-200/70 dark:bg-slate-800 hover:bg-amber-500/20 text-slate-700 dark:text-slate-300 cursor-pointer">6m (50.15)</button>
+                <button onclick="setYagiFreq(145.00)" class="px-2 py-0.5 rounded-md text-[10px] font-mono bg-slate-200/70 dark:bg-slate-800 hover:bg-amber-500/20 text-slate-700 dark:text-slate-300 cursor-pointer">2m (145.0)</button>
+                <button onclick="setYagiFreq(435.00)" class="px-2 py-0.5 rounded-md text-[10px] font-mono bg-slate-200/70 dark:bg-slate-800 hover:bg-amber-500/20 text-slate-700 dark:text-slate-300 cursor-pointer">70cm (435.0)</button>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Diameter Elemen Aluminium (mm)</label>
+              <input id="yagiDiam" type="number" step="0.5" min="2" max="50" value="8" oninput="calculateYagi()" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-100 dark:bg-rf-card border border-slate-300 dark:border-slate-700 font-mono text-sm text-slate-900 dark:text-cyan-400 focus:outline-none focus:border-cyan-500" />
+              <p class="text-[11px] text-slate-400 mt-1.5">Kompensasi rasio diameter terhadap panjang gelombang otomatis diterapkan.</p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div class="p-3.5 rounded-2xl bg-slate-100 dark:bg-rf-card border border-slate-200 dark:border-slate-800">
+              <span class="text-[11px] font-semibold text-slate-500 dark:text-slate-400 block">1. Reflektor (Belakang)</span>
+              <span id="resYagiRef" class="text-base font-mono font-bold text-slate-900 dark:text-white mt-0.5 block">1.045 m (104.5 cm)</span>
+            </div>
+
+            <div class="p-3.5 rounded-2xl bg-amber-500/10 border border-amber-500/30">
+              <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-300 block">2. Driven Element</span>
+              <span id="resYagiDrv" class="text-base font-mono font-extrabold text-amber-600 dark:text-amber-400 mt-0.5 block">0.986 m (98.6 cm)</span>
+            </div>
+
+            <div class="p-3.5 rounded-2xl bg-cyan-500/10 border border-cyan-500/30">
+              <span class="text-[11px] font-semibold text-cyan-700 dark:text-cyan-300 block">3. Direktor (Depan)</span>
+              <span id="resYagiDir" class="text-base font-mono font-extrabold text-cyan-600 dark:text-cyan-400 mt-0.5 block">0.938 m (93.8 cm)</span>
+            </div>
+          </div>
+
+          <div class="p-3.5 rounded-2xl bg-slate-100/80 dark:bg-rf-card/90 border border-slate-200 dark:border-slate-800 grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+            <div>
+              <span class="text-slate-500 dark:text-slate-400 block">Spasi Reflektor – Driven:</span>
+              <span id="resYagiSpace1" class="font-mono font-bold text-slate-900 dark:text-slate-100">37.2 cm (0.18λ)</span>
+            </div>
+            <div>
+              <span class="text-slate-500 dark:text-slate-400 block">Spasi Driven – Direktor:</span>
+              <span id="resYagiSpace2" class="font-mono font-bold text-slate-900 dark:text-slate-100">33.1 cm (0.16λ)</span>
+            </div>
+            <div>
+              <span class="text-slate-500 dark:text-slate-400 block">Total Boom Minimum:</span>
+              <span id="resYagiBoom" class="font-mono font-bold text-amber-600 dark:text-amber-400">70.3 cm (Gain ~7.5 dBi)</span>
+            </div>
+          </div>
+
+          <div class="pt-1 flex justify-end">
+            <button onclick="askAiFromYagi()" class="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-xs shadow-md shadow-amber-500/15 transition cursor-pointer">
+              <span>Kirim Hasil & Tanya Gamma Match ke AI</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- TAB 3: SWR, RETURN LOSS & DAYA TERPANTUL -->
+        <div id="calcPanel3" class="hidden space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <div class="flex justify-between text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+                <span>Nilai VSWR (1.00 – 10.00)</span>
+                <span id="swrBadgeRating" class="font-mono text-emerald-500">Sangat Baik</span>
+              </div>
+              <input id="swrValueInput" type="number" step="0.05" min="1.00" max="20.00" value="1.30" oninput="calculateSwr()" class="w-full px-3.5 py-2 rounded-xl bg-slate-100 dark:bg-rf-card border border-slate-300 dark:border-slate-700 font-mono text-sm font-bold text-slate-900 dark:text-amber-400 focus:outline-none focus:border-amber-500 mb-2" />
+              <input id="swrSlider" type="range" min="1.00" max="6.00" step="0.05" value="1.30" oninput="syncSwrSlider(this.value)" class="w-full accent-amber-500 cursor-pointer" />
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Daya Pancar / TX Power (Watt)</label>
+              <input id="swrPowerInput" type="number" step="1" min="1" max="5000" value="100" oninput="calculateSwr()" class="w-full px-3.5 py-2 rounded-xl bg-slate-100 dark:bg-rf-card border border-slate-300 dark:border-slate-700 font-mono text-sm font-bold text-slate-900 dark:text-cyan-400 focus:outline-none focus:border-cyan-500" />
+              <div class="flex flex-wrap gap-1.5 mt-2">
+                <button onclick="setSwrPower(5)" class="px-2 py-0.5 rounded-md text-[10px] font-mono bg-slate-200/70 dark:bg-slate-800 hover:bg-cyan-500/20 text-slate-700 dark:text-slate-300 cursor-pointer">5W QRP</button>
+                <button onclick="setSwrPower(50)" class="px-2 py-0.5 rounded-md text-[10px] font-mono bg-slate-200/70 dark:bg-slate-800 hover:bg-cyan-500/20 text-slate-700 dark:text-slate-300 cursor-pointer">50W VHF</button>
+                <button onclick="setSwrPower(100)" class="px-2 py-0.5 rounded-md text-[10px] font-mono bg-slate-200/70 dark:bg-slate-800 hover:bg-cyan-500/20 text-slate-700 dark:text-slate-300 cursor-pointer">100W HF</button>
+                <button onclick="setSwrPower(500)" class="px-2 py-0.5 rounded-md text-[10px] font-mono bg-slate-200/70 dark:bg-slate-800 hover:bg-cyan-500/20 text-slate-700 dark:text-slate-300 cursor-pointer">500W QRO</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div class="p-3 rounded-2xl bg-slate-100 dark:bg-rf-card border border-slate-200 dark:border-slate-800">
+              <span class="text-[11px] text-slate-500 dark:text-slate-400 block">Koefisien Refleksi (Γ)</span>
+              <span id="resSwrGamma" class="text-base font-mono font-bold text-slate-900 dark:text-white mt-0.5 block">0.130</span>
+            </div>
+
+            <div class="p-3 rounded-2xl bg-cyan-500/10 border border-cyan-500/30">
+              <span class="text-[11px] text-cyan-700 dark:text-cyan-300 block">Return Loss (S11)</span>
+              <span id="resSwrReturnLoss" class="text-base font-mono font-extrabold text-cyan-600 dark:text-cyan-400 mt-0.5 block">17.69 dB</span>
+            </div>
+
+            <div class="p-3 rounded-2xl bg-rose-500/10 border border-rose-500/25">
+              <span class="text-[11px] text-rose-700 dark:text-rose-300 block">Daya Terpantul</span>
+              <span id="resSwrReflected" class="text-base font-mono font-extrabold text-rose-600 dark:text-rose-400 mt-0.5 block">1.7% (1.7 W)</span>
+            </div>
+
+            <div class="p-3 rounded-2xl bg-emerald-500/10 border border-emerald-500/25">
+              <span class="text-[11px] text-emerald-700 dark:text-emerald-300 block">Daya Terpancar</span>
+              <span id="resSwrForward" class="text-base font-mono font-extrabold text-emerald-600 dark:text-emerald-400 mt-0.5 block">98.3% (98.3 W)</span>
+            </div>
+          </div>
+
+          <div class="pt-1 flex justify-end">
+            <button onclick="askAiFromSwr()" class="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-xs shadow-md shadow-amber-500/15 transition cursor-pointer">
+              <span>Kirim Hasil SWR untuk Analisis AI</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Banner -->
+  <div id="toastBanner" class="fixed bottom-20 right-4 z-50 hidden items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-900 dark:bg-slate-800 text-white text-xs font-medium shadow-xl border border-slate-700 transition-all">
+    <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+    <span id="toastMessage">Notifikasi</span>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- JAVASCRIPT APPLICATION LOGIC                                          -->
+  <!-- ===================================================================== -->
+  <script>
+    // =========================================================================
+    // 1. DIRECT GEMINI API CONFIGURATION (EMBEDDED IN CODE)
+    // =========================================================================
+    const GEMINI_API_KEY = "AQ.Ab8RN6Linx-Y4wxW9fZbGVogRIwvTlG7_kA0jajHDcNsAwVYIg";
+    const FALLBACK_MODELS = [
+      "gemini-2.5-flash",
+      "gemini-3-flash-preview",
+      "gemini-2.0-flash",
+      "gemini-1.5-flash"
+    ];
+
+    const STORAGE_KEYS = {
+      CHATS: "ordasu_ai_chats_v2",
+      ACTIVE_CHAT: "ordasu_ai_active_chat_v2",
+      CALLSIGN: "ordasu_ai_callsign_v2",
+      OPERATOR_QTH: "ordasu_ai_operator_qth_v2",
+      THEME: "ordasu_ai_theme_v2"
+    };
+
+    // Categorized Quick Topic Starters
+    const TOPIC_STARTERS = [
+      {
+        category: "Regulasi ORARI & Call Area 6",
+        icon: "📡",
+        items: [
+          {
+            title: "Band Plan HF/VHF/UHF Indonesia & PERMENKOMINFO",
+            prompt: "Jelaskan pembagian Band Plan Amatir Radio Indonesia (HF, VHF, UHF) sesuai PERMENKOMINFO terbaru beserta hak pancar tingkat Siaga (YD), Penggalang (YC), dan Penegak (YB)."
+          },
+          {
+            title: "Prosedur QSO, Kode-Q & Operasi Darurat CORE ORARI",
+            prompt: "Berikan panduan tata cara panggilan CQ, penggunaan Kode-Q penting, Alfabet Fonetik ITU, laporan sinyal RST, serta prosedur operasi komunikasi darurat kebencanaan CORE ORARI."
+          }
+        ]
+      },
+      {
+        category: "Teknik Antena & Matching",
+        icon: "📐",
+        items: [
+          {
+            title: "Merakit Antena EFHW 49:1 Multi-Band (40m–10m)",
+            prompt: "Bagaimana cara merakit antena End-Fed Half-Wave (EFHW) 40m-10m lengkap dengan lilitan trafo Toroid FT240-43 rasio 49:1, kapasitor kompensasi, dan panjang kawat radiatornya?"
+          },
+          {
+            title: "Mengatasi SWR Tinggi & Common-Mode Current",
+            prompt: "Mengapa antena Dipole 40m memiliki SWR tinggi dan menyebabkan RF bite pada mikrofon? Jelaskan cara membuat Choke Balun 1:1 menggunakan ferit dan teknik tuning sayap antena."
+          }
+        ]
+      },
+      {
+        category: "Propagasi & Elektronika RF",
+        icon: "⚡",
+        items: [
+          {
+            title: "Propagasi NVIS 40m/80m untuk Wilayah Bukit Barisan",
+            prompt: "Jelaskan prinsip kerja propagasi NVIS (Near Vertical Incidence Skywave) pada band 40m dan 80m untuk komunikasi antar-ORARI Lokal di wilayah pegunungan Sumatera Utara, serta tinggi ideal antena dipole NVIS."
+          },
+          {
+            title: "Membaca Smith Chart & Kurva S11 di NanoVNA",
+            prompt: "Ajarkan cara membaca grafik Smith Chart, Return Loss (S11), dan impedansi kompleks R ± jX pada NanoVNA saat menyetel antena agar resonan tepat di 50 Ohm."
+          }
+        ]
+      },
+      {
+        category: "eSSB, Mode Digital & Satelit",
+        icon: "🛰️",
+        items: [
+          {
+            title: "Setting Equalizer & Compressor Audio eSSB",
+            prompt: "Bagaimana pengaturan ideal Parametric Equalizer, Compressor, dan Noise Gate untuk audio eSSB (Extended SSB) agar modulasi terdengar bulat, jernih, bertenaga, namun bebas splatter?"
+          },
+          {
+            title: "QSO Satelit IO-86 (LAPAN-ORARI) & Mode FT8",
+            prompt: "Jelaskan langkah persiapan komunikasi melalui satelit amatir LEO seperti IO-86 (LAPAN-ORARI) termasuk koreksi Doppler shift, serta panduan konfigurasi mode digital FT8/JS8Call."
+          }
+        ]
+      }
+    ];
+
+    let appState = {
+      chats: [],
+      activeChatId: null,
+      callsign: "",
+      operatorQth: "",
+      attachedImage: null, // { base64, mimeType, name, previewUrl }
+      isGenerating: false,
+      abortController: null,
+      pendingDeleteChatId: null
+    };
+
+    // =========================================================================
+    // 2. INITIALIZATION & LOCALSTORAGE PERSISTENCE
+    // =========================================================================
+    window.addEventListener("DOMContentLoaded", () => {
+      configureMarkdown();
+      loadPersistedState();
+      renderTopicStarters();
+      renderChatHistory();
+      renderActiveChat();
+      calculateDipole();
+      calculateYagi();
+      calculateSwr();
+    });
+
+    function configureMarkdown() {
+      if (typeof marked !== "undefined") {
+        marked.setOptions({
+          breaks: true,
+          gfm: true
+        });
+      }
+    }
+
+    function loadPersistedState() {
+      // Theme
+      const savedTheme = localStorage.getItem(STORAGE_KEYS.THEME);
+      if (savedTheme === "light") {
+        document.documentElement.classList.remove("dark");
+      } else {
+        document.documentElement.classList.add("dark");
+      }
+
+      // Station Profile
+      appState.callsign = localStorage.getItem(STORAGE_KEYS.CALLSIGN) || "";
+      appState.operatorQth = localStorage.getItem(STORAGE_KEYS.OPERATOR_QTH) || "";
+      updateStationUI();
+
+      // Chats
+      try {
+        const rawChats = localStorage.getItem(STORAGE_KEYS.CHATS);
+        appState.chats = rawChats ? JSON.parse(rawChats) : [];
+      } catch (e) {
+        appState.chats = [];
+      }
+
+      const savedActiveId = localStorage.getItem(STORAGE_KEYS.ACTIVE_CHAT);
+      if (savedActiveId && appState.chats.some(c => c.id === savedActiveId)) {
+        appState.activeChatId = savedActiveId;
+      } else if (appState.chats.length > 0) {
+        appState.activeChatId = appState.chats[0].id;
+      } else {
+        appState.activeChatId = null;
+      }
+    }
+
+    function saveChatsToStorage() {
+      try {
+        const sanitized = appState.chats.map((chat, idx) => ({
+          ...chat,
+          messages: chat.messages.map(m => {
+            if (idx > 4 && m.image) {
+              return { ...m, image: null, hadImage: true };
+            }
+            return m;
+          })
+        }));
+        localStorage.setItem(STORAGE_KEYS.CHATS, JSON.stringify(sanitized));
+        if (appState.activeChatId) {
+          localStorage.setItem(STORAGE_KEYS.ACTIVE_CHAT, appState.activeChatId);
+        } else {
+          localStorage.removeItem(STORAGE_KEYS.ACTIVE_CHAT);
+        }
+      } catch (err) {
+        console.warn("Penyimpanan lokal penuh, membersihkan lampiran gambar lama.");
+      }
+    }
+
+    // =========================================================================
+    // 3. DOMAIN EXPERT SYSTEM INSTRUCTION (BAHASA INDONESIA)
+    // =========================================================================
+    function buildSystemInstruction() {
+      const callsignLine = appState.callsign
+        ? `Rekan operator memiliki Callsign **${appState.callsign}**. Sapalah secara ramah dan hormat menggunakan Callsign-nya saat relevan.`
+        : `Operator belum mengatur Callsign spesifik (Call Area 6 Sumatera Utara: YB6/YC6/YD6).`;
+
+      const qthLine = appState.operatorQth
+        ? `Nama Operator / QTH: **${appState.operatorQth}**.`
+        : `Wilayah referensi utama: Sumatera Utara (Call Area 6).`;
+
+      return `Anda adalah **ORDASU AI** (Asisten Cerdas ORARI Daerah Sumatera Utara), asisten pakar berbahasa Indonesia di bidang **Amatir Radio, Telekomunikasi, Elektronika RF, Regulasi & Operasional ORARI, Propagasi Gelombang Radio, serta Teknik Antena**.
+
+IDENTITAS STASIUN OPERATOR:
+- ${callsignLine}
+- ${qthLine}
+
+KOMPETENSI UTAMA ANDA:
+1. **ORARI & Regulasi Amatir Radio Indonesia**:
+   - Menguasai struktur organisasi ORARI Pusat, **ORARI Daerah Sumatera Utara (ORDASU - Call Area 6: prefix YB6, YC6, YD6, YH6)**, dan ORARI Lokal di Sumatera Utara.
+   - Menguasai regulasi **PERMENKOMINFO** tentang Kegiatan Amatir Radio, IAR (Izin Amatir Radio), UNAR (Ujian Negara Amatir Radio), pembagian tingkat kecakapan (**Siaga / YD**, **Penggalang / YC**, **Penegak / YB**), serta **Band Plan Amatir Radio Indonesia** (LF, MF, HF 160m–10m, VHF 6m & 2m, UHF 70cm & 23cm, SHF).
+   - Menguasai prosedur QSO: **Kode-Q** (QTH, QSL, QRM, QRN, QSB, QRP, QRO, QRZ, QRT, QRV), **Alfabet Fonetik ITU**, laporan sinyal **RST**, operasi repeater VHF/UHF, serta protokol komunikasi darurat kebencanaan **CORE (Communication and Rescue) ORARI**.
+
+2. **Propagasi Gelombang Radio (HF / VHF / UHF)**:
+   - Menguasai propagasi ionosfer (lapisan D, E, F1, F2), **NVIS (Near Vertical Incidence Skywave)** pada band 40m/80m untuk komunikasi regional di wilayah bergunung seperti Bukit Barisan Sumatera Utara, Sporadic-E, Tropospheric Ducting, serta interpretasi indeks matahari (SFI, A-index, K-index).
+
+3. **Teknik Antena & Saluran Transmisi**:
+   - Ahli merancang, menghitung dimensi fisik vs elektrik (Velocity Factor / End Effect), dan menyetel antena: **Half-Wave Dipole, Inverted-V, Yagi-Uda, End-Fed Half-Wave (EFHW 49:1 / 64:1), J-Pole, Slim Jim, Vertical 1/4λ & 5/8λ, Moxon, Delta Loop, Cubical Quad, hingga Magnetic Loop**.
+   - Menguasai jaringan penyesuai impedansi (**Gamma Match, Beta/Hairpin Match, T-Match, L-Network, Pi-Network**) serta perancangan **Choke Balun 1:1** dan **Balun 4:1 / 9:1** menggunakan inti ferit Toroid (FT240-43, FT140-61), pemilihan kabel koaksial (RG-58, RG-8, RG-213, LMR-400, Heliax), konektor RF, dan sistem grounding/proteksi petir.
+
+4. **Elektronika RF, Troubleshooting Transceiver & Instrumentasi**:
+   - Menguasai analisis dan perbaikan transceiver HF/VHF/UHF, **Linear Amplifier RF**, filter harmonik (**LPF / BPF**), osilator DDS (Si5351), serta catu daya **Power Supply 13.8V DC** low-noise.
+   - Mampu membaca dan menganalisis grafik **NanoVNA** (kurva VSWR, Return Loss $S_{11}$, Smith Chart impedansi kompleks $R \pm jX$), termasuk dari foto/tangkapan layar yang diunggah operator.
+
+5. **eSSB, Mode Digital & Satelit Amatir**:
+   - Menguasai pemrosesan audio mikrofon **eSSB** (Parametric EQ, Compressor, Noise Gate, DSP) agar modulasi jernih tanpa *splatter*, mode digital (**FT8, FT4, JS8Call, WSPR, APRS, Winlink, SSTV**), dan satelit amatir LEO (**IO-86 / LAPAN-ORARI**, SO-50, AO-91, ISS) beserta perhitungan efek Doppler.
+
+GAYA KOMUNIKASI:
+- Gunakan Bahasa Indonesia yang teknis, sistematis, ramah, dan suportif sesama rekan amatir radio.
+- Sertakan rumus dan langkah perhitungan konkret bila membahas perancangan antena atau rangkaian elektronika.
+- Selalu utamakan keselamatan kelistrikan, tegangan tinggi, dan paparan RF. Akhiri dengan salam khas amatir radio seperti **73!** bila relevan.`;
+    }
+
+    // =========================================================================
+    // 4. GEMINI REST API ENGINE (MULTI-MODEL FALLBACK + ABORT CONTROLLER)
+    // =========================================================================
+    async function callGeminiAPI({ contents, systemInstruction, signal }) {
+      const payload = {
+        contents,
+        generationConfig: {
+          temperature: 0.7,
+          topP: 0.95,
+          maxOutputTokens: 4096
+        }
+      };
+
+      if (systemInstruction) {
+        payload.systemInstruction = {
+          parts: [{ text: systemInstruction }]
+        };
+      }
+
+      let lastError = null;
+
+      for (const modelName of FALLBACK_MODELS) {
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${encodeURIComponent(GEMINI_API_KEY)}`;
+        const maxRetries = 2;
+
+        for (let attempt = 0; attempt <= maxRetries; attempt++) {
+          if (signal && signal.aborted) {
+            throw new DOMException("Permintaan dihentikan oleh operator.", "AbortError");
+          }
+
+          try {
+            const response = await fetch(apiUrl, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(payload),
+              signal
+            });
+
+            if (!response.ok) {
+              const errJson = await response.json().catch(() => ({}));
+              const errMsg = errJson?.error?.message || `HTTP ${response.status} (${response.statusText})`;
+
+              if ((response.status === 429 || response.status === 503) && attempt < maxRetries) {
+                const backoffMs = Math.pow(2, attempt) * 1000;
+                await new Promise(resolve => setTimeout(resolve, backoffMs));
+                continue;
+              }
+
+              lastError = new Error(errMsg);
+              break; // Pindah ke model fallback berikutnya
+            }
+
+            const data = await response.json();
+            const candidate = data?.candidates?.[0];
+            const responseText = candidate?.content?.parts?.map(p => p.text || "").join("") || "";
+
+            if (!responseText) {
+              lastError = new Error("Respons server kosong.");
+              break;
+            }
+
+            return { text: responseText, modelUsed: modelName };
+          } catch (err) {
+            if (err.name === "AbortError") throw err;
+            lastError = err;
+            if (attempt < maxRetries) {
+              const backoffMs = Math.pow(2, attempt) * 1000;
+              await new Promise(resolve => setTimeout(resolve, backoffMs));
+            }
+          }
+        }
+      }
+
+      throw lastError || new Error("Gagal terhubung ke layanan Gemini AI.");
+    }
+
+    // =========================================================================
+    // 5. CHAT WORKFLOW: SEND, STOP, REGENERATE, SLIDING CONTEXT (10 MESSAGES)
+    // =========================================================================
+    function handlePromptKeydown(e) {
+      if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
+        if (!appState.isGenerating) {
+          sendMessage();
+        }
+      }
+    }
+
+    function autoResizeTextarea(el) {
+      el.style.height = "auto";
+      el.style.height = Math.min(el.scrollHeight, 160) + "px";
+    }
+
+    function handleSendOrStop() {
+      if (appState.isGenerating) {
+        stopGeneration();
+      } else {
+        sendMessage();
+      }
+    }
+
+    function stopGeneration() {
+      if (appState.abortController) {
+        appState.abortController.abort();
+        appState.abortController = null;
+      }
+      setGeneratingState(false);
+      showToast("Generasi respons dihentikan.");
+    }
+
+    function setGeneratingState(isGen) {
+      appState.isGenerating = isGen;
+      const sendIcon = document.getElementById("sendIcon");
+      const stopIcon = document.getElementById("stopIcon");
+      const btn = document.getElementById("sendOrStopBtn");
+
+      if (isGen) {
+        sendIcon.classList.add("hidden");
+        stopIcon.classList.remove("hidden");
+        btn.classList.remove("from-amber-500", "to-amber-600");
+        btn.classList.add("bg-rose-600", "hover:bg-rose-500", "text-white");
+        btn.title = "Hentikan Respons";
+      } else {
+        sendIcon.classList.remove("hidden");
+        stopIcon.classList.add("hidden");
+        btn.classList.add("from-amber-500", "to-amber-600");
+        btn.classList.remove("bg-rose-600", "hover:bg-rose-500", "text-white");
+        btn.title = "Kirim Pertanyaan (Enter)";
+      }
+    }
+
+    async function sendMessage(overridePromptText = null) {
+      const inputEl = document.getElementById("promptInput");
+      const rawText = overridePromptText !== null ? overridePromptText : inputEl.value.trim();
+      const attachedImg = appState.attachedImage;
+
+      if (!rawText && !attachedImg) return;
+      if (appState.isGenerating) return;
+
+      // Ensure active chat exists
+      let currentChat = appState.chats.find(c => c.id === appState.activeChatId);
+      if (!currentChat) {
+        const titleSnippet = rawText
+          ? (rawText.length > 44 ? rawText.slice(0, 44) + "..." : rawText)
+          : "Analisis Gambar RF / Antena";
+        currentChat = {
+          id: "chat_" + Date.now(),
+          title: titleSnippet,
+          updatedAt: Date.now(),
+          messages: []
+        };
+        appState.chats.unshift(currentChat);
+        appState.activeChatId = currentChat.id;
+      } else {
+        if (currentChat.messages.length === 0 && rawText) {
+          currentChat.title = rawText.length > 44 ? rawText.slice(0, 44) + "..." : rawText;
+        }
+        currentChat.updatedAt = Date.now();
+        appState.chats = [currentChat, ...appState.chats.filter(c => c.id !== currentChat.id)];
+      }
+
+      // Append user message
+      currentChat.messages.push({
+        id: "msg_" + Date.now(),
+        role: "user",
+        text: rawText || "Mohon analisis gambar teknik RF / antena yang saya lampirkan ini.",
+        image: attachedImg ? { ...attachedImg } : null,
+        timestamp: Date.now()
+      });
+
+      if (overridePromptText === null) {
+        inputEl.value = "";
+        inputEl.style.height = "auto";
+      }
+      clearAttachedImage();
+
+      saveChatsToStorage();
+      renderChatHistory();
+      renderActiveChat(true);
+
+      await executeAiTurn(currentChat);
+    }
+
+    async function regenerateLastResponse() {
+      if (appState.isGenerating) return;
+      const currentChat = appState.chats.find(c => c.id === appState.activeChatId);
+      if (!currentChat || currentChat.messages.length === 0) return;
+
+      if (currentChat.messages[currentChat.messages.length - 1].role === "model") {
+        currentChat.messages.pop();
+      }
+
+      saveChatsToStorage();
+      renderActiveChat(true);
+      await executeAiTurn(currentChat);
+    }
+
+    async function executeAiTurn(currentChat) {
+      setGeneratingState(true);
+      updateConnectionPill("transmitting", "MENGIRIM SINYAL...");
+
+      const controller = new AbortController();
+      appState.abortController = controller;
+
+      // Sliding context window of the last 10 messages to optimize TPM quota
+      const slidingWindowMessages = currentChat.messages.slice(-10);
+      const contents = slidingWindowMessages.map(msg => {
+        const parts = [];
+        if (msg.text) {
+          parts.push({ text: msg.text });
+        }
+        if (msg.image && msg.image.base64) {
+          parts.push({
+            inlineData: {
+              mimeType: msg.image.mimeType,
+              data: msg.image.base64
+            }
+          });
+        }
+        return {
+          role: msg.role === "user" ? "user" : "model",
+          parts
+        };
+      });
+
+      try {
+        const { text, modelUsed } = await callGeminiAPI({
+          contents,
+          systemInstruction: buildSystemInstruction(),
+          signal: controller.signal
+        });
+
+        currentChat.messages.push({
+          id: "msg_" + Date.now(),
+          role: "model",
+          text,
+          modelUsed,
+          timestamp: Date.now()
+        });
+        currentChat.updatedAt = Date.now();
+        updateConnectionPill("connected", "ORDASU AI • TERHUBUNG");
+      } catch (err) {
+        if (err.name === "AbortError") {
+          currentChat.messages.push({
+            id: "msg_" + Date.now(),
+            role: "model",
+            text: "_Transmisi dihentikan oleh operator._",
+            isError: false,
+            timestamp: Date.now()
+          });
+          updateConnectionPill("connected", "GEMINI AI • TERHUBUNG");
+        } else {
+          currentChat.messages.push({
+            id: "msg_" + Date.now(),
+            role: "model",
+            text: `**Gangguan Transmisi ke Server Gemini AI**\n\nKeterangan teknis: \`${err.message}\`\n\nSilakan tunggu beberapa saat jika batas permintaan sementara tercapai, lalu klik **Buat Ulang** untuk mencoba kembali.`,
+            isError: true,
+            timestamp: Date.now()
+          });
+          updateConnectionPill("error", "GANGGUAN KONEKSI");
+        }
+      } finally {
+        appState.abortController = null;
+        setGeneratingState(false);
+        saveChatsToStorage();
+        renderActiveChat(false);
+      }
+    }
+
+    function updateConnectionPill(state, labelText) {
+      const pill = document.getElementById("connectionStatusPill");
+      const dot = document.getElementById("connectionDot");
+      const text = document.getElementById("connectionText");
+
+      pill.className = "hidden md:flex items-center gap-1.5 px-2.5 py-1.5 rounded-full border text-[11px] font-mono font-semibold select-none";
+      dot.className = "w-2 h-2 rounded-full shrink-0";
+
+      if (state === "error") {
+        pill.classList.add("bg-rose-500/10", "border-rose-500/30", "text-rose-700", "dark:text-rose-400");
+        dot.classList.add("bg-rose-500");
+      } else if (state === "transmitting") {
+        pill.classList.add("bg-amber-500/10", "border-amber-500/30", "text-amber-700", "dark:text-amber-400");
+        dot.classList.add("bg-amber-500", "animate-ping");
+      } else {
+        pill.classList.add("bg-emerald-500/10", "border-emerald-500/30", "text-emerald-700", "dark:text-emerald-400");
+        dot.classList.add("bg-emerald-500", "animate-pulse");
+      }
+      text.textContent = labelText;
+    }
+
+    // =========================================================================
+    // 6. MULTIMODAL IMAGE UPLOAD & CLIPBOARD PASTE
+    // =========================================================================
+    function handleImageFileSelect(event) {
+      const file = event.target.files?.[0];
+      if (!file) return;
+      processImageFile(file);
+      event.target.value = "";
+    }
+
+    window.addEventListener("paste", e => {
+      const items = e.clipboardData?.items;
+      if (!items) return;
+      for (const item of items) {
+        if (item.type.startsWith("image/")) {
+          const file = item.getAsFile();
+          if (file) {
+            processImageFile(file);
+            showToast("Gambar dari clipboard siap dianalisis.");
+          }
+          break;
+        }
+      }
+    });
+
+    function processImageFile(file) {
+      if (!file.type.startsWith("image/")) {
+        showToast("Format file harus berupa gambar (PNG, JPG, WEBP).");
+        return;
+      }
+      if (file.size > 8 * 1024 * 1024) {
+        showToast("Ukuran gambar maksimal 8 MB.");
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        const dataUrl = reader.result;
+        const base64 = dataUrl.split(",")[1];
+        appState.attachedImage = {
+          base64,
+          mimeType: file.type,
+          name: file.name || "gambar_rf.png",
+          previewUrl: dataUrl
+        };
+
+        document.getElementById("imagePreviewThumb").src = dataUrl;
+        document.getElementById("imagePreviewName").textContent = appState.attachedImage.name;
+        document.getElementById("imagePreviewBar").classList.remove("hidden");
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function clearAttachedImage() {
+      appState.attachedImage = null;
+      document.getElementById("imagePreviewBar").classList.add("hidden");
+      document.getElementById("imagePreviewThumb").src = "";
+    }
+
+    // =========================================================================
+    // 7. CHAT UI, MARKDOWN + KATEX RENDERING & 1-CLICK CODE COPY
+    // =========================================================================
+    function renderTopicStarters() {
+      const container = document.getElementById("topicStartersContainer");
+      container.innerHTML = TOPIC_STARTERS.map(cat => `
+        <div class="rounded-xl bg-slate-100/75 dark:bg-rf-card/75 border border-slate-200/70 dark:border-slate-800 p-2.5">
+          <div class="flex items-center gap-1.5 text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1.5">
+            <span>${cat.icon}</span>
+            <span>${escapeHtml(cat.category)}</span>
+          </div>
+          <div class="space-y-1">
+            ${cat.items.map(item => `
+              <button onclick="triggerQuickTopic(${JSON.stringify(item.prompt).replace(/"/g, "&quot;")})" class="w-full text-left px-2.5 py-1.5 rounded-lg text-[11px] text-slate-600 dark:text-slate-400 hover:text-amber-600 dark:hover:text-amber-300 hover:bg-white dark:hover:bg-slate-800 transition leading-snug cursor-pointer">
+                • ${escapeHtml(item.title)}
+              </button>
+            `).join("")}
+          </div>
+        </div>
+      `).join("");
+    }
+
+    function triggerQuickTopic(promptText) {
+      if (window.innerWidth < 1024) {
+        toggleSidebar(false);
+      }
+      sendMessage(promptText);
+    }
+
+    function renderChatHistory() {
+      const listEl = document.getElementById("chatHistoryList");
+      const countBadge = document.getElementById("historyCountBadge");
+      const query = (document.getElementById("chatSearchInput").value || "").toLowerCase().trim();
+
+      const filtered = appState.chats.filter(chat => {
+        if (!query) return true;
+        const inTitle = chat.title.toLowerCase().includes(query);
+        const inMessages = chat.messages.some(m => (m.text || "").toLowerCase().includes(query));
+        return inTitle || inMessages;
+      });
+
+      countBadge.textContent = appState.chats.length;
+
+      if (filtered.length === 0) {
+        listEl.innerHTML = `
+          <div class="px-3 py-4 text-center text-xs text-slate-400 dark:text-slate-500 rounded-xl border border-dashed border-slate-200 dark:border-slate-800">
+            ${query ? "Tidak ada obrolan yang cocok." : "Belum ada riwayat obrolan tersimpan."}
+          </div>
+        `;
+        return;
+      }
+
+      listEl.innerHTML = filtered.map(chat => {
+        const isActive = chat.id === appState.activeChatId;
+        const isConfirmingDelete = appState.pendingDeleteChatId === chat.id;
+        const timeStr = new Date(chat.updatedAt).toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" });
+
+        if (isConfirmingDelete) {
+          return `
+            <div class="flex items-center justify-between gap-1.5 px-2.5 py-2 rounded-xl bg-rose-500/15 border border-rose-500/35 text-xs">
+              <span class="text-rose-600 dark:text-rose-300 font-medium truncate">Hapus chat ini?</span>
+              <div class="flex items-center gap-1 shrink-0">
+                <button onclick="confirmDeleteChat('${chat.id}')" class="px-2 py-0.5 rounded bg-rose-600 text-white font-semibold text-[11px] cursor-pointer">Ya</button>
+                <button onclick="cancelDeleteChat()" class="px-2 py-0.5 rounded bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200 text-[11px] cursor-pointer">Batal</button>
+              </div>
+            </div>
+          `;
+        }
+
+        return `
+          <div onclick="selectChat('${chat.id}')" class="group flex items-center justify-between gap-2 px-3 py-2.5 rounded-xl cursor-pointer transition ${
+            isActive
+              ? "bg-amber-500/15 border border-amber-500/35 text-slate-900 dark:text-white font-semibold"
+              : "hover:bg-slate-100 dark:hover:bg-rf-card text-slate-700 dark:text-slate-300 border border-transparent"
+          }">
+            <div class="min-w-0 flex-1">
+              <p class="text-xs truncate">${escapeHtml(chat.title)}</p>
+              <span class="text-[10px] font-mono text-slate-400">${timeStr} • ${chat.messages.length} pesan</span>
+            </div>
+            <button onclick="requestDeleteChat(event, '${chat.id}')" class="opacity-60 group-hover:opacity-100 p-1 rounded-lg text-slate-400 hover:text-rose-500 hover:bg-rose-500/10 transition shrink-0 cursor-pointer" title="Hapus obrolan">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+              </svg>
+            </button>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function createNewChat() {
+      appState.activeChatId = null;
+      appState.pendingDeleteChatId = null;
+      localStorage.removeItem(STORAGE_KEYS.ACTIVE_CHAT);
+      renderChatHistory();
+      renderActiveChat();
+      if (window.innerWidth < 1024) {
+        toggleSidebar(false);
+      }
+      document.getElementById("promptInput").focus();
+    }
+
+    function selectChat(chatId) {
+      appState.activeChatId = chatId;
+      appState.pendingDeleteChatId = null;
+      localStorage.setItem(STORAGE_KEYS.ACTIVE_CHAT, chatId);
+      renderChatHistory();
+      renderActiveChat();
+      if (window.innerWidth < 1024) {
+        toggleSidebar(false);
+      }
+    }
+
+    function requestDeleteChat(event, chatId) {
+      event.stopPropagation();
+      appState.pendingDeleteChatId = chatId;
+      renderChatHistory();
+    }
+
+    function cancelDeleteChat() {
+      appState.pendingDeleteChatId = null;
+      renderChatHistory();
+    }
+
+    function confirmDeleteChat(chatId) {
+      appState.chats = appState.chats.filter(c => c.id !== chatId);
+      if (appState.activeChatId === chatId) {
+        appState.activeChatId = appState.chats.length > 0 ? appState.chats[0].id : null;
+      }
+      appState.pendingDeleteChatId = null;
+      saveChatsToStorage();
+      renderChatHistory();
+      renderActiveChat();
+      showToast("Riwayat obrolan dihapus.");
+    }
+
+    function renderActiveChat(showTypingIndicator = false) {
+      const wrapper = document.getElementById("chatMessagesWrapper");
+      const scrollContainer = document.getElementById("chatScrollContainer");
+      const currentChat = appState.chats.find(c => c.id === appState.activeChatId);
+
+      if (!currentChat || currentChat.messages.length === 0) {
+        const greetingTarget = appState.callsign
+          ? `Rekan <span class="text-amber-500 font-mono">${escapeHtml(appState.callsign)}</span>`
+          : "Rekan Amatir Radio";
+        const qthBadge = appState.operatorQth
+          ? ` • ${escapeHtml(appState.operatorQth)}`
+          : "";
+
+        wrapper.innerHTML = `
+          <div class="py-6 sm:py-10 flex flex-col items-center text-center">
+            <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-slate-900 to-slate-800 dark:from-rf-card dark:to-slate-950 border border-amber-500/40 flex items-center justify-center shadow-lg shadow-amber-500/10 mb-4">
+              <svg class="w-11 h-11" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path class="rf-wave-anim" d="M13 13C9.5 16.5 9.5 22.5 13 26" stroke="#06b6d4" stroke-width="2.2" stroke-linecap="round"/>
+                <path class="rf-wave-anim" d="M35 13C38.5 16.5 38.5 22.5 35 26" stroke="#06b6d4" stroke-width="2.2" stroke-linecap="round"/>
+                <path d="M17 16.5C15 18.5 15 21.5 17 23.5" stroke="#38bdf8" stroke-width="2" stroke-linecap="round"/>
+                <path d="M31 16.5C33 18.5 33 21.5 31 23.5" stroke="#38bdf8" stroke-width="2" stroke-linecap="round"/>
+                <circle cx="24" cy="19.5" r="2.6" fill="#f59e0b"/>
+                <path d="M24 22L17.5 40M24 22L30.5 40" stroke="#f59e0b" stroke-width="2.4" stroke-linecap="round"/>
+                <path d="M19.5 34H28.5M21 28.5H27" stroke="#fbbf24" stroke-width="2" stroke-linecap="round"/>
+                <path d="M14 40H34" stroke="#94a3b8" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/12 border border-amber-500/30 text-amber-600 dark:text-amber-400 text-xs font-semibold mb-3">
+              <span> • ORARI DAERAH SUMATERA UTARA${qthBadge}</span>
+            </div>
+
+            <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white mb-2">
+              Selamat Datang di ORDASU AI, ${greetingTarget}!
+            </h2>
+            <p class="max-w-2xl text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-7">
+              Asisten cerdas untuk perancangan antena HF/VHF/UHF, analisis propagasi, pembacaan grafik NanoVNA, rangkaian elektronika RF, troubleshooting transceiver, serta regulasi & operasional ORARI.
+            </p>
+
+            <!-- Quick Starter Cards -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full text-left">
+              <button onclick="triggerQuickTopic('Buatkan panduan lengkap merakit antena Inverted-V 40 meter band (7.055 MHz) lengkap dengan ukuran kawat, pembuatan Choke Balun 1:1 menggunakan ferit, dan cara tuning SWR-nya.')" class="p-4 rounded-2xl bg-white dark:bg-rf-panel hover:border-amber-500/50 border border-slate-200 dark:border-rf-border shadow-xs transition group cursor-pointer">
+                <div class="flex items-center justify-between mb-1.5">
+                  <span class="text-xs font-bold text-amber-600 dark:text-amber-400">📐 Teknik Antena & Balun</span>
+                  <span class="text-xs text-slate-400 group-hover:translate-x-0.5 transition">→</span>
+                </div>
+                <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                  Panduan lengkap merakit antena Inverted-V 40m (7.055 MHz), Choke Balun 1:1, dan cara tuning SWR.
+                </p>
+              </button>
+
+              <button onclick="triggerQuickTopic('Jelaskan pembagian alokasi frekuensi Band Plan Amatir Radio Indonesia sesuai PERMENKOMINFO untuk tingkat Siaga (YD), Penggalang (YC), dan Penegak (YB), serta frekuensi darurat CORE ORARI.')" class="p-4 rounded-2xl bg-white dark:bg-rf-panel hover:border-cyan-500/50 border border-slate-200 dark:border-rf-border shadow-xs transition group cursor-pointer">
+                <div class="flex items-center justify-between mb-1.5">
+                  <span class="text-xs font-bold text-cyan-600 dark:text-cyan-400">📡 Regulasi ORARI & Band Plan</span>
+                  <span class="text-xs text-slate-400 group-hover:translate-x-0.5 transition">→</span>
+                </div>
+                <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                  Alokasi Band Plan Indonesia untuk tingkat Siaga, Penggalang, Penegak & prosedur darurat CORE.
+                </p>
+              </button>
+
+              <button onclick="triggerQuickTopic('Bagaimana cara membaca grafik Smith Chart dan kurva S11 Return Loss pada NanoVNA saat antena menunjukkan impedansi 35 - j25 Ohm? Bagaimana solusi matching-nya?')" class="p-4 rounded-2xl bg-white dark:bg-rf-panel hover:border-cyan-500/50 border border-slate-200 dark:border-rf-border shadow-xs transition group cursor-pointer">
+                <div class="flex items-center justify-between mb-1.5">
+                  <span class="text-xs font-bold text-cyan-600 dark:text-cyan-400">⚡ NanoVNA & Elektronika RF</span>
+                  <span class="text-xs text-slate-400 group-hover:translate-x-0.5 transition">→</span>
+                </div>
+                <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                  Interpretasi Smith Chart & impedansi kompleks R ± jX pada NanoVNA serta perancangan matching network.
+                </p>
+              </button>
+
+              <button onclick="openCalculatorModal()" class="p-4 rounded-2xl bg-gradient-to-br from-amber-500/10 to-cyan-500/10 hover:border-amber-500/60 border border-amber-500/30 shadow-xs transition group cursor-pointer">
+                <div class="flex items-center justify-between mb-1.5">
+                  <span class="text-xs font-bold text-slate-900 dark:text-white">🧮 Kalkulator Antena & SWR</span>
+                  <span class="text-xs font-mono text-amber-600 dark:text-amber-400">Buka Tool →</span>
+                </div>
+                <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                  Hitung dimensi Dipole, Inverted-V, Yagi 3-Elemen, Return Loss & Daya Terpantul secara instan.
+                </p>
+              </button>
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      const messagesHtml = currentChat.messages.map((msg, index) => {
+        const isUser = msg.role === "user";
+        const isLastModelMsg = !isUser && index === currentChat.messages.length - 1;
+        const timeStr = new Date(msg.timestamp).toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" });
+
+        if (isUser) {
+          const senderTag = appState.callsign ? escapeHtml(appState.callsign) : "Operator";
+          return `
+            <div class="flex justify-end">
+              <div class="max-w-[88%] sm:max-w-[78%] rounded-2xl rounded-tr-sm px-4 py-3 bg-gradient-to-br from-slate-800 to-slate-900 dark:from-rf-card dark:to-slate-800 text-white border border-slate-700/80 shadow-sm">
+                <div class="flex items-center justify-between gap-4 mb-1.5 text-[11px]">
+                  <span class="font-mono font-bold text-amber-400">${senderTag}</span>
+                  <span class="text-slate-400 font-mono">${timeStr}</span>
+                </div>
+                ${msg.image && msg.image.previewUrl ? `
+                  <div class="mb-2.5">
+                    <img src="${msg.image.previewUrl}" alt="Lampiran Operator" class="max-h-60 rounded-xl border border-slate-600 object-contain" />
+                  </div>
+                ` : (msg.hadImage ? `<div class="mb-2 text-[11px] italic text-cyan-300">[Lampiran Gambar RF]</div>` : "")}
+                <div class="text-sm leading-relaxed whitespace-pre-wrap break-words">${escapeHtml(msg.text)}</div>
+              </div>
+            </div>
+          `;
+        }
+
+        return `
+          <div class="flex items-start gap-3">
+            <div class="w-8 h-8 rounded-xl bg-amber-500/15 border border-amber-500/35 flex items-center justify-center text-amber-500 font-mono font-extrabold text-xs shrink-0 mt-0.5">
+              AI
+            </div>
+            <div class="flex-1 min-w-0 rounded-2xl rounded-tl-sm px-4 py-3.5 bg-white dark:bg-rf-panel border ${msg.isError ? "border-rose-500/40" : "border-slate-200 dark:border-rf-border"} shadow-xs">
+              <div class="flex flex-wrap items-center justify-between gap-2 mb-2 pb-1.5 border-b border-slate-100 dark:border-slate-800/80">
+                <div class="flex items-center gap-2">
+                  <span class="text-xs font-bold text-slate-900 dark:text-white">ORDASU AI</span>
+                </div>
+                <span class="text-[10px] font-mono text-slate-400">${timeStr}</span>
+              </div>
+
+              <div class="md-prose text-slate-800 dark:text-slate-200 break-words">
+                ${renderMarkdownSafe(msg.text)}
+              </div>
+
+              <!-- Message Action Bar -->
+              <div class="mt-3 pt-2 border-t border-slate-100 dark:border-slate-800/70 flex items-center gap-2">
+                <button onclick="copyTextToClipboard(this, ${JSON.stringify(msg.text).replace(/"/g, "&quot;")})" class="flex items-center gap-1 px-2 py-1 rounded-lg text-[11px] font-medium text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-rf-card transition cursor-pointer">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                  </svg>
+                  <span>Salin Jawaban</span>
+                </button>
+
+                ${isLastModelMsg && !appState.isGenerating ? `
+                  <button onclick="regenerateLastResponse()" class="flex items-center gap-1 px-2 py-1 rounded-lg text-[11px] font-medium text-slate-500 dark:text-slate-400 hover:text-amber-600 dark:hover:text-amber-400 hover:bg-slate-100 dark:hover:bg-rf-card transition cursor-pointer">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                    </svg>
+                    <span>Buat Ulang</span>
+                  </button>
+                ` : ""}
+              </div>
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      const typingHtml = showTypingIndicator ? `
+        <div class="flex items-start gap-3">
+          <div class="w-8 h-8 rounded-xl bg-amber-500/15 border border-amber-500/35 flex items-center justify-center text-amber-500 font-mono font-extrabold text-xs shrink-0">
+            AI
+          </div>
+          <div class="px-4 py-3.5 rounded-2xl rounded-tl-sm bg-white dark:bg-rf-panel border border-slate-200 dark:border-rf-border flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-amber-500 typing-dot"></span>
+            <span class="w-2 h-2 rounded-full bg-amber-500 typing-dot"></span>
+            <span class="w-2 h-2 rounded-full bg-amber-500 typing-dot"></span>
+            <span class="text-xs text-slate-500 dark:text-slate-400 ml-1 font-mono">Menganalisis sinyal RF...</span>
+          </div>
+        </div>
+      ` : "";
+
+      wrapper.innerHTML = messagesHtml + typingHtml;
+
+      // Render math equations via KaTeX if loaded
+      if (typeof renderMathInElement === "function") {
+        try {
+          renderMathInElement(wrapper, {
+            delimiters: [
+              { left: "$$", right: "$$", display: true },
+              { left: "$", right: "$", display: false }
+            ],
+            throwOnError: false
+          });
+        } catch (e) {}
+      }
+
+      scrollContainer.scrollTop = scrollContainer.scrollHeight;
+    }
+
+    function renderMarkdownSafe(mdText) {
+      if (!mdText) return "";
+      let rawHtml = "";
+
+      if (typeof marked !== "undefined") {
+        rawHtml = marked.parse(mdText);
+      } else {
+        rawHtml = escapeHtml(mdText).replace(/\n/g, "<br>");
+      }
+
+      const cleanHtml = typeof DOMPurify !== "undefined"
+        ? DOMPurify.sanitize(rawHtml)
+        : rawHtml;
+
+      // Enhance <pre><code> blocks with header & 1-click Copy button
+      const tempDiv = document.createElement("div");
+      tempDiv.innerHTML = cleanHtml;
+
+      tempDiv.querySelectorAll("pre").forEach(preEl => {
+        const codeEl = preEl.querySelector("code");
+        const codeText = codeEl ? codeEl.textContent : preEl.textContent;
+        const langClass = codeEl ? Array.from(codeEl.classList).find(c => c.startsWith("language-")) : "";
+        const langLabel = langClass ? langClass.replace("language-", "").toUpperCase() : "CODE / RF DATA";
+
+        const wrapper = document.createElement("div");
+        wrapper.className = "my-3 rounded-xl overflow-hidden border border-slate-300 dark:border-slate-700/90 bg-slate-900 text-slate-100";
+
+        const header = document.createElement("div");
+        header.className = "px-3.5 py-1.5 bg-slate-800/95 border-b border-slate-700 flex items-center justify-between text-[11px] font-mono";
+        header.innerHTML = `<span class="text-cyan-400 font-semibold">${escapeHtml(langLabel)}</span>`;
+
+        const copyBtn = document.createElement("button");
+        copyBtn.type = "button";
+        copyBtn.className = "flex items-center gap-1 px-2 py-0.5 rounded bg-slate-700 hover:bg-slate-600 text-slate-200 transition cursor-pointer";
+        copyBtn.innerHTML = "<span>Salin Kode</span>";
+        copyBtn.setAttribute("onclick", `copyTextToClipboard(this, ${JSON.stringify(codeText)})`);
+
+        header.appendChild(copyBtn);
+
+        preEl.className = "p-3.5 overflow-x-auto text-xs font-mono leading-relaxed text-slate-100 m-0";
+        preEl.parentNode.insertBefore(wrapper, preEl);
+        wrapper.appendChild(header);
+        wrapper.appendChild(preEl);
+      });
+
+      return tempDiv.innerHTML;
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+
+    // =========================================================================
+    // 8. SIDEBAR, THEME & STATION SETTINGS MODAL (PENGATURAN STASIUN)
+    // =========================================================================
+    function toggleSidebar(forceState = null) {
+      const sidebar = document.getElementById("sidebar");
+      const backdrop = document.getElementById("sidebarBackdrop");
+      const isCurrentlyOpen = !sidebar.classList.contains("-translate-x-full");
+      const nextState = forceState !== null ? forceState : !isCurrentlyOpen;
+
+      if (nextState) {
+        sidebar.classList.remove("-translate-x-full");
+        backdrop.classList.remove("hidden");
+      } else {
+        sidebar.classList.add("-translate-x-full");
+        backdrop.classList.add("hidden");
+      }
+    }
+
+    function toggleTheme() {
+      const isDark = document.documentElement.classList.toggle("dark");
+      localStorage.setItem(STORAGE_KEYS.THEME, isDark ? "dark" : "light");
+      syncThemeModalButtons();
+    }
+
+    function setThemeMode(mode) {
+      if (mode === "light") {
+        document.documentElement.classList.remove("dark");
+      } else {
+        document.documentElement.classList.add("dark");
+      }
+      localStorage.setItem(STORAGE_KEYS.THEME, mode);
+      syncThemeModalButtons();
+    }
+
+    function syncThemeModalButtons() {
+      const isDark = document.documentElement.classList.contains("dark");
+      const darkBtn = document.getElementById("themeBtnDark");
+      const lightBtn = document.getElementById("themeBtnLight");
+      if (!darkBtn || !lightBtn) return;
+
+      if (isDark) {
+        darkBtn.className = "flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl border text-xs font-bold transition cursor-pointer bg-amber-500/15 border-amber-500 text-amber-400";
+        lightBtn.className = "flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl border text-xs font-semibold transition cursor-pointer bg-rf-card border-slate-700 text-slate-400 hover:text-slate-200";
+      } else {
+        lightBtn.className = "flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl border text-xs font-bold transition cursor-pointer bg-amber-500/15 border-amber-500 text-amber-700";
+        darkBtn.className = "flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl border text-xs font-semibold transition cursor-pointer bg-slate-100 border-slate-300 text-slate-600 hover:text-slate-900";
+      }
+    }
+
+    function openStationModal(focusCallsign = false) {
+      document.getElementById("stationCallsignInput").value = appState.callsign;
+      document.getElementById("stationQthInput").value = appState.operatorQth;
+      document.getElementById("clearAllConfirmBox").classList.add("hidden");
+      syncThemeModalButtons();
+
+      const modal = document.getElementById("stationSettingsModal");
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+
+      if (focusCallsign) {
+        setTimeout(() => document.getElementById("stationCallsignInput").focus(), 50);
+      }
+    }
+
+    function closeStationModal() {
+      const modal = document.getElementById("stationSettingsModal");
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
+    }
+
+    function saveStationSettings() {
+      const cleanCallsign = document.getElementById("stationCallsignInput").value.trim().toUpperCase();
+      const cleanQth = document.getElementById("stationQthInput").value.trim();
+
+      appState.callsign = cleanCallsign;
+      appState.operatorQth = cleanQth;
+
+      localStorage.setItem(STORAGE_KEYS.CALLSIGN, cleanCallsign);
+      localStorage.setItem(STORAGE_KEYS.OPERATOR_QTH, cleanQth);
+
+      updateStationUI();
+      renderActiveChat();
+      closeStationModal();
+      showToast(cleanCallsign ? `Identitas stasiun ${cleanCallsign} tersimpan. 73!` : "Pengaturan stasiun disimpan.");
+    }
+
+    function updateStationUI() {
+      const display = document.getElementById("callsignDisplay");
+      const qthLabel = document.getElementById("qthFooterLabel");
+
+      display.textContent = appState.callsign
+        ? `Callsign: ${appState.callsign}`
+        : "Callsign: YB6/YC6/YD6";
+
+      qthLabel.textContent = appState.operatorQth
+        ? appState.operatorQth
+        : "ORARI Daerah Sumatera Utara";
+    }
+
+    function requestClearAllChats() {
+      document.getElementById("clearAllConfirmBox").classList.remove("hidden");
+    }
+
+    function cancelClearAllChats() {
+      document.getElementById("clearAllConfirmBox").classList.add("hidden");
+    }
+
+    function executeClearAllChats() {
+      appState.chats = [];
+      appState.activeChatId = null;
+      appState.pendingDeleteChatId = null;
+      saveChatsToStorage();
+      renderChatHistory();
+      renderActiveChat();
+      cancelClearAllChats();
+      closeStationModal();
+      showToast("Semua riwayat obrolan berhasil dihapus.");
+    }
+
+    // =========================================================================
+    // 9. INTERACTIVE RF & ANTENNA ENGINEERING CALCULATORS
+    // =========================================================================
+    function openCalculatorModal() {
+      const modal = document.getElementById("calculatorModal");
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+    }
+
+    function closeCalculatorModal() {
+      const modal = document.getElementById("calculatorModal");
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
+    }
+
+    function switchCalcTab(tabNum) {
+      [1, 2, 3].forEach(num => {
+        const btn = document.getElementById(`calcTabBtn${num}`);
+        const panel = document.getElementById(`calcPanel${num}`);
+        if (num === tabNum) {
+          btn.classList.add("border-amber-500", "text-amber-600", "dark:text-amber-400", "bg-white", "dark:bg-rf-panel", "font-bold");
+          btn.classList.remove("border-transparent", "text-slate-500", "dark:text-slate-400", "font-semibold");
+          panel.classList.remove("hidden");
+        } else {
+          btn.classList.remove("border-amber-500", "text-amber-600", "dark:text-amber-400", "bg-white", "dark:bg-rf-panel", "font-bold");
+          btn.classList.add("border-transparent", "text-slate-500", "dark:text-slate-400", "font-semibold");
+          panel.classList.add("hidden");
+        }
+      });
+    }
+
+    // Tab 1: Half-Wave Dipole & Inverted-V
+    function setDipoleFreq(freq) {
+      document.getElementById("dipoleFreq").value = freq;
+      calculateDipole();
+    }
+
+    function calculateDipole() {
+      const f = Math.max(0.1, parseFloat(document.getElementById("dipoleFreq").value) || 7.055);
+      const vf = parseFloat(document.getElementById("dipoleVf").value) || 0.95;
+      const cfg = document.getElementById("dipoleConfig").value;
+
+      document.getElementById("dipoleVfLabel").textContent = vf.toFixed(3);
+
+      let angleFactor = 1.0;
+      if (cfg === "inv120") {
+        angleFactor = 0.975;
+        document.getElementById("dipoleApexLabel").textContent = "120° (Inverted-V)";
+      } else if (cfg === "inv90") {
+        angleFactor = 0.955;
+        document.getElementById("dipoleApexLabel").textContent = "90° (Inverted-V Tajam)";
+      } else {
+        document.getElementById("dipoleApexLabel").textContent = "180° (Flat-Top)";
+      }
+
+      const lambda = 299.792458 / f;
+      const totalMeters = (lambda / 2) * vf * angleFactor;
+      const legMeters = totalMeters / 2;
+
+      document.getElementById("resDipoleLambda").textContent = `${lambda.toFixed(2)} m`;
+      document.getElementById("resDipoleLambdaCm").textContent = `${(lambda * 100).toFixed(1)} cm`;
+      document.getElementById("resDipoleTotal").textContent = `${totalMeters.toFixed(2)} m`;
+      document.getElementById("resDipoleTotalCm").textContent = `${(totalMeters * 100).toFixed(1)} cm`;
+      document.getElementById("resDipoleLeg").textContent = `${legMeters.toFixed(2)} m`;
+      document.getElementById("resDipoleLegCm").textContent = `${(legMeters * 100).toFixed(1)} cm (+15cm trim)`;
+    }
+
+    function askAiFromDipole() {
+      const f = document.getElementById("dipoleFreq").value;
+      const total = document.getElementById("resDipoleTotal").textContent;
+      const leg = document.getElementById("resDipoleLeg").textContent;
+      const cfgText = document.getElementById("dipoleConfig").selectedOptions[0].text;
+      closeCalculatorModal();
+      sendMessage(`Saya baru menghitung dimensi antena **${cfgText}** pada frekuensi **${f} MHz** dengan panjang total **${total}** (panjang per sayap **${leg}**). Mohon jelaskan detail konstruksi mekanisnya, rekomendasi jenis & ukuran kawat tembaga, pembuatan Choke Balun 1:1, ketinggian tiang ideal, serta langkah tuning SWR-nya.`);
+    }
+
+    // Tab 2: Yagi 3-Elemen
+    function setYagiFreq(freq) {
+      document.getElementById("yagiFreq").value = freq;
+      calculateYagi();
+    }
+
+    function calculateYagi() {
+      const f = Math.max(1, parseFloat(document.getElementById("yagiFreq").value) || 145.0);
+      const diamMm = Math.max(1, parseFloat(document.getElementById("yagiDiam").value) || 8);
+      const lambda = 299.792458 / f;
+
+      const dOverLambda = (diamMm / 1000) / lambda;
+      const thicknessComp = Math.max(0.95, 1 - (dOverLambda * 1.8));
+
+      const refLen = (152.0 / f) * thicknessComp;
+      const drvLen = (143.5 / f) * thicknessComp;
+      const dirLen = (136.5 / f) * thicknessComp;
+
+      const spaceRefDrvCm = lambda * 0.18 * 100;
+      const spaceDrvDirCm = lambda * 0.16 * 100;
+      const totalBoomCm = spaceRefDrvCm + spaceDrvDirCm;
+
+      document.getElementById("resYagiRef").textContent = `${refLen.toFixed(3)} m (${(refLen * 100).toFixed(1)} cm)`;
+      document.getElementById("resYagiDrv").textContent = `${drvLen.toFixed(3)} m (${(drvLen * 100).toFixed(1)} cm)`;
+      document.getElementById("resYagiDir").textContent = `${dirLen.toFixed(3)} m (${(dirLen * 100).toFixed(1)} cm)`;
+      document.getElementById("resYagiSpace1").textContent = `${spaceRefDrvCm.toFixed(1)} cm (0.18λ)`;
+      document.getElementById("resYagiSpace2").textContent = `${spaceDrvDirCm.toFixed(1)} cm (0.16λ)`;
+      document.getElementById("resYagiBoom").textContent = `${totalBoomCm.toFixed(1)} cm (Gain ~7.5 dBi)`;
+    }
+
+    function askAiFromYagi() {
+      const f = document.getElementById("yagiFreq").value;
+      const diam = document.getElementById("yagiDiam").value;
+      const ref = document.getElementById("resYagiRef").textContent;
+      const drv = document.getElementById("resYagiDrv").textContent;
+      const dir = document.getElementById("resYagiDir").textContent;
+      const boom = document.getElementById("resYagiBoom").textContent;
+      closeCalculatorModal();
+      sendMessage(`Saya ingin merakit antena **Yagi 3-Elemen** pada frekuensi **${f} MHz** dengan pipa aluminium diameter **${diam} mm** (Reflektor: ${ref}, Driven Element: ${drv}, Direktor: ${dir}, panjang boom: ${boom}). Tolong jelaskan cara membuat sistem penyesuai impedansi **Gamma Match** agar SWR mencapai 1.1:1 pada kabel koaksial 50 Ohm.`);
+    }
+
+    // Tab 3: SWR, Return Loss & Daya Terpantul
+    function syncSwrSlider(val) {
+      document.getElementById("swrValueInput").value = parseFloat(val).toFixed(2);
+      calculateSwr();
+    }
+
+    function setSwrPower(watts) {
+      document.getElementById("swrPowerInput").value = watts;
+      calculateSwr();
+    }
+
+    function calculateSwr() {
+      let swr = parseFloat(document.getElementById("swrValueInput").value);
+      if (isNaN(swr) || swr < 1.0) swr = 1.0;
+      const fwdPower = Math.max(0.1, parseFloat(document.getElementById("swrPowerInput").value) || 100);
+
+      document.getElementById("swrSlider").value = Math.min(6.0, swr);
+
+      const gamma = (swr - 1) / (swr + 1);
+      const returnLoss = gamma > 0 ? -20 * Math.log10(gamma) : 99.9;
+      const reflRatio = gamma * gamma;
+      const reflPercent = reflRatio * 100;
+      const fwdPercent = 100 - reflPercent;
+      const reflWatts = fwdPower * reflRatio;
+      const transWatts = fwdPower - reflWatts;
+
+      document.getElementById("resSwrGamma").textContent = gamma.toFixed(3);
+      document.getElementById("resSwrReturnLoss").textContent = gamma > 0 ? `${returnLoss.toFixed(2)} dB` : "∞ dB (Ideal)";
+      document.getElementById("resSwrReflected").textContent = `${reflPercent.toFixed(1)}% (${reflWatts.toFixed(1)} W)`;
+      document.getElementById("resSwrForward").textContent = `${fwdPercent.toFixed(1)}% (${transWatts.toFixed(1)} W)`;
+
+      const badge = document.getElementById("swrBadgeRating");
+      badge.className = "font-mono font-bold";
+      if (swr <= 1.5) {
+        badge.textContent = "Sangat Baik (Optimal)";
+        badge.classList.add("text-emerald-500");
+      } else if (swr <= 2.0) {
+        badge.textContent = "Baik (Aman Digunakan)";
+        badge.classList.add("text-cyan-500");
+      } else if (swr <= 3.0) {
+        badge.textContent = "Waspada (Perlu Matching)";
+        badge.classList.add("text-amber-500");
+      } else {
+        badge.textContent = "Bahaya Transistor Final!";
+        badge.classList.add("text-rose-500");
+      }
+    }
+
+    function askAiFromSwr() {
+      const swr = document.getElementById("swrValueInput").value;
+      const power = document.getElementById("swrPowerInput").value;
+      const rl = document.getElementById("resSwrReturnLoss").textContent;
+      const refl = document.getElementById("resSwrReflected").textContent;
+      closeCalculatorModal();
+      sendMessage(`Sistem antena saya terbaca memiliki **VSWR ${swr}:1** (Return Loss ${rl}) pada daya pancar **${power} Watt**, sehingga daya terpantul mencapai **${refl}**. Jelaskan langkah sistematis mendiagnosis penyebab tingginya SWR dan solusi menurunkannya.`);
+    }
+
+    // =========================================================================
+    // 10. CLIPBOARD & TOAST HELPERS
+    // =========================================================================
+    function copyTextToClipboard(btnEl, text) {
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      textarea.style.position = "fixed";
+      textarea.style.opacity = "0";
+      document.body.appendChild(textarea);
+      textarea.select();
+
+      try {
+        document.execCommand("copy");
+        const labelSpan = btnEl.querySelector("span");
+        if (labelSpan) {
+          const orig = labelSpan.textContent;
+          labelSpan.textContent = "Tersalin!";
+          setTimeout(() => { labelSpan.textContent = orig; }, 1600);
+        }
+        showToast("Teks berhasil disalin ke clipboard.");
+      } catch (err) {
+        showToast("Gagal menyalin teks.");
+      } finally {
+        document.body.removeChild(textarea);
+      }
+    }
+
+    let toastTimeout = null;
+    function showToast(message) {
+      const banner = document.getElementById("toastBanner");
+      const msgEl = document.getElementById("toastMessage");
+      msgEl.textContent = message;
+      banner.classList.remove("hidden");
+      banner.classList.add("flex");
+
+      if (toastTimeout) clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        banner.classList.add("hidden");
+        banner.classList.remove("flex");
+      }, 2800);
+    }
+  </script>
+</body>
+</html>
